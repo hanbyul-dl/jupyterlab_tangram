@@ -1,0 +1,9 @@
+.jp-OutputWidgetYAML {
+  margin: 0;
+  padding: 0;
+}
+
+div.output_subarea.output_YAML {
+  padding: 0;
+  max-width: 100%;
+}

@@ -1,0 +1,24 @@
+sources:
+  dl_raster:
+    # Create your satellite imagery raster tile through https://viewer.descarteslabs.com/
+    type: Raster
+    url: https://platform.descarteslabs.com/raster/v2/xyz/7ec653af6c0fd47df529c78c3a336d2db2250ca1/{z}/{x}/{y}.png
+  test_geojson:
+    type: GeoJSON
+    # TO DO: how to load local files
+    url: https://gist.githubusercontent.com/hanbyul-here/ecbe699a80b3e12133b2893802c72b18/raw/10adf16fbf0bde4e852f501846d39d47122ab26b/baek-dabang.geojson
+
+layers:
+  test_dl_raster:
+    data: { source: dl_raster }
+    draw:
+      raster:
+        order: 0
+
+  test_points:
+    data: { source: test_geojson }
+    draw:
+      points:
+        color: "#f00"
+        size: 10px
+        order: 1
