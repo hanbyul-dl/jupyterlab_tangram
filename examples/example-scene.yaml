@@ -19,6 +19,40 @@ layers:
     data: { source: test_geojson }
     draw:
       points:
+        interactive: true
         color: "#f00"
-        size: 10px
+        size: 18px
         order: 1
+
+jupyterlab:
+  tangramEvents:
+    init: |
+      function (map, tangramLayer) {
+        map.setView([37.5749, 126.9761], 14);
+        var getFormattedTable = function(obj) {
+          var table = document.createElement('table');
+          for(var key in obj) {
+            var tr = document.createElement('tr');
+            var keyTd = document.createElement('td');
+            keyTd.textContent = key;
+            var valTd = document.createElement('td');
+            valTd = document.createElement('td');
+            valTd.textContent = obj[key];
+            tr.appendChild(keyTd);
+            tr.appendChild(valTd);
+            table.appendChild(tr);
+          }
+          return table;
+        }
+
+        var popup = L.popup();
+        tangramLayer.setSelectionEvents({
+          click: function(selection) {
+            if (selection.feature && selection.feature.source_name.includes('test')) {
+              popup.setLatLng(selection.leaflet_event.latlng);
+              popup.setContent(getFormattedTable(selection.feature.properties));
+              popup.openOn(map);
+            }
+          }
+        });
+      }
